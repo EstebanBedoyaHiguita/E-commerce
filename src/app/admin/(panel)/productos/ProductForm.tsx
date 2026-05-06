@@ -24,7 +24,7 @@ const schema = z.object({
   description: z.string().optional(),
   brand_id: z.string().min(1, "Selecciona una marca"),
   category_id: z.string().min(1, "Selecciona una categoría"),
-  base_price: z.coerce.number().min(0, "Precio inválido"),
+  base_price: z.coerce.number().min(1, "El precio debe ser mayor a 0"),
   gender: z.enum(["hombre", "mujer", "unisex"]).default("unisex"),
   is_active: z.boolean().default(true),
   is_featured: z.boolean().default(false),

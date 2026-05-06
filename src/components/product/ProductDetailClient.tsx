@@ -15,10 +15,10 @@ interface ProductDetailClientProps {
 const tabs = ["Descripción", "Tabla de tallas", "Cuidados"] as const
 
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(product.variants?.[0] ?? null)
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("Descripción")
 
-  const price = selectedVariant?.price_override ?? product.base_price
+  const price = Number(selectedVariant?.price_override || product.base_price)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
