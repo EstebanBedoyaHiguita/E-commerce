@@ -10,6 +10,7 @@ import {
   LogOut,
   Tag,
   Layers,
+  Store,
 } from "lucide-react"
 import type { AdminRole } from "@/types"
 
@@ -79,21 +80,32 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </ul>
         </nav>
 
-        <div className="p-4 border-t border-kult-border">
-          <p className="text-xs font-semibold truncate">{session.name}</p>
-          <p className="text-[10px] uppercase tracking-widest mt-0.5" style={{ color: "var(--muted)" }}>
-            {session.role}
-          </p>
-          <form action="/api/admin/logout" method="POST">
-            <button
-              type="submit"
-              className="flex items-center gap-2 text-xs mt-3 hover:text-kult-fire transition-colors"
-              style={{ color: "var(--muted)" }}
-            >
-              <LogOut className="h-3 w-3" />
-              Cerrar sesión
-            </button>
-          </form>
+        <div className="p-4 border-t border-kult-border space-y-3">
+          <Link
+            href="/"
+            target="_blank"
+            className="flex items-center gap-2 text-xs hover:text-kult-neon transition-colors"
+            style={{ color: "var(--muted)" }}
+          >
+            <Store className="h-3 w-3" />
+            Ver tienda
+          </Link>
+          <div className="border-t border-kult-border pt-3">
+            <p className="text-xs font-semibold truncate">{session.name}</p>
+            <p className="text-[10px] uppercase tracking-widest mt-0.5" style={{ color: "var(--muted)" }}>
+              {session.role}
+            </p>
+            <form action="/api/admin/logout" method="POST">
+              <button
+                type="submit"
+                className="flex items-center gap-2 text-xs mt-3 hover:text-kult-fire transition-colors"
+                style={{ color: "var(--muted)" }}
+              >
+                <LogOut className="h-3 w-3" />
+                Cerrar sesión
+              </button>
+            </form>
+          </div>
         </div>
       </aside>
 
