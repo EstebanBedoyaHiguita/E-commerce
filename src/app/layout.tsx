@@ -36,21 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var theme = localStorage.getItem('kult-theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch(e) {}
-            `,
-          }}
-        />
-      </head>
+    <html lang="es" className="dark">
       <body className={`${bebasNeue.variable} ${dmSans.variable} font-body antialiased`}>
         {children}
       </body>

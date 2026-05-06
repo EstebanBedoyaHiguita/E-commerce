@@ -14,7 +14,6 @@ import {
 } from "lucide-react"
 import { useCartStore } from "@/stores/cartStore"
 import { useWishlistStore } from "@/stores/wishlistStore"
-import { ThemeToggle } from "@/components/shared/ThemeToggle"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
@@ -83,8 +82,6 @@ export function Navbar() {
 
           {/* Right icons */}
           <div className="flex items-center gap-1">
-            <ThemeToggle />
-
             <Link href="/buscar" className="p-2 hover:text-kult-neon transition-colors" aria-label="Buscar">
               <Search className="h-5 w-5" />
             </Link>
