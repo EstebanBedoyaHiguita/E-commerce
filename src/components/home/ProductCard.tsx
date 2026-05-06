@@ -20,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const isWishlisted = has(product.id)
 
   const firstVariant = product.variants?.[0]
-  const price = firstVariant?.price_override ?? product.base_price
+  const price = Number(firstVariant?.price_override ?? product.base_price)
   const secondImage = product.images[1]
 
   const handleQuickAdd = (e: React.MouseEvent) => {
