@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-kult-bg">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <span className="font-display text-5xl tracking-widest text-kult-neon">KULT</span>
+          <span className="font-display text-5xl tracking-widest text-kult-neon">ULTRASTORE</span>
           <h1 className="font-display text-2xl tracking-widest mt-3 text-white">ADMIN</h1>
         </div>
 

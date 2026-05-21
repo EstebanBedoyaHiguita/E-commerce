@@ -17,8 +17,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "KULT — Streetwear Multimarca",
-    template: "%s | KULT",
+    default: "UltraStore — Streetwear Multimarca",
+    template: "%s | UltraStore",
   },
   description:
     "Tienda online de ropa urbana y streetwear. Jeans, camisetas y más de las mejores marcas.",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_CO",
-    siteName: "KULT",
+    siteName: "UltraStore",
   },
 };
 

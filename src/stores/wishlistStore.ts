@@ -24,7 +24,7 @@ export const useWishlistStore = create<WishlistState>()(
       has: (productId) => get().productIds.includes(productId),
     }),
     {
-      name: "kult-wishlist",
+      name: "ultrastore-wishlist",
     }
   )
 )

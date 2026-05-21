@@ -33,7 +33,7 @@ const navItems = [
 async function getAdminSession(): Promise<AdminSession | null> {
   try {
     const cookieStore = await cookies()
-    const raw = cookieStore.get("kult-admin-session")?.value
+    const raw = cookieStore.get("ultrastore-admin-session")?.value
     if (!raw) return null
     return JSON.parse(Buffer.from(raw, "base64").toString())
   } catch {
@@ -53,7 +53,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <aside className="w-56 flex-shrink-0 border-r border-kult-border flex flex-col bg-kult-surface">
         <div className="p-6 border-b border-kult-border">
           <Link href="/admin" className="font-display text-3xl tracking-widest text-kult-neon">
-            KULT
+            ULTRASTORE
           </Link>
           <p className="text-[10px] uppercase tracking-widest mt-0.5" style={{ color: "var(--muted)" }}>
             Admin

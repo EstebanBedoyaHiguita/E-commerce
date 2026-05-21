@@ -1,6 +1,6 @@
 import { Resend } from "resend"
 
-const FROM = "KULT <noreply@kult.co>"
+const FROM = "UltraStore <noreply@ultrastore.co>"
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY ?? "placeholder")
@@ -35,12 +35,12 @@ function buildEmailHtml(type: OrderEmailType, data: OrderEmailData): string {
 <!DOCTYPE html>
 <html>
 <body style="background:#0a0a0a;color:#ffffff;font-family:sans-serif;padding:40px 20px;max-width:600px;margin:0 auto;">
-  <h1 style="font-size:3rem;letter-spacing:0.1em;color:#e8ff00;margin-bottom:8px;">KULT</h1>
+  <h1 style="font-size:3rem;letter-spacing:0.1em;color:#e8ff00;margin-bottom:8px;">UltraStore</h1>
   <p style="color:#888;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;margin-top:0;">Streetwear Multimarca</p>
   <hr style="border-color:#222;margin:24px 0;" />
   <p style="font-size:15px;line-height:1.6;">${messages[type]}</p>
   <hr style="border-color:#222;margin:24px 0;" />
-  <p style="font-size:11px;color:#555;">© ${new Date().getFullYear()} KULT. Colombia.</p>
+  <p style="font-size:11px;color:#555;">© ${new Date().getFullYear()} UltraStore. Colombia.</p>
 </body>
 </html>`
 }

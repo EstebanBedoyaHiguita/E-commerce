@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   })).toString("base64")
 
   const response = NextResponse.json({ ok: true })
-  response.cookies.set("kult-admin-session", session, {
+  response.cookies.set("ultrastore-admin-session", session, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",

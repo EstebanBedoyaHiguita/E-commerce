@@ -7,7 +7,7 @@ export function ThemeToggle() {
   const [isDark, setIsDark] = useState(true)
 
   useEffect(() => {
-    const stored = localStorage.getItem("kult-theme")
+    const stored = localStorage.getItem("ultrastore-theme")
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
     const dark = stored ? stored === "dark" : prefersDark
     setIsDark(dark)
@@ -18,7 +18,7 @@ export function ThemeToggle() {
     const next = !isDark
     setIsDark(next)
     document.documentElement.classList.toggle("dark", next)
-    localStorage.setItem("kult-theme", next ? "dark" : "light")
+    localStorage.setItem("ultrastore-theme", next ? "dark" : "light")
   }
 
   return (

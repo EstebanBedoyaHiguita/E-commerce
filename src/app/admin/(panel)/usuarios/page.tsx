@@ -6,7 +6,7 @@ import { UserManager } from "./UserManager"
 async function getSession() {
   const cookieStore = await cookies()
   try {
-    const raw = cookieStore.get("kult-admin-session")?.value
+    const raw = cookieStore.get("ultrastore-admin-session")?.value
     if (!raw) return null
     return JSON.parse(Buffer.from(raw, "base64").toString())
   } catch { return null }
