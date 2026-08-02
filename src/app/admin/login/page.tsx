@@ -43,11 +43,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-kult-bg">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-dralena-bg">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <span className="font-display text-5xl tracking-widest text-kult-neon">ULTRASTORE</span>
-          <h1 className="font-display text-2xl tracking-widest mt-3 text-white">ADMIN</h1>
+          <span className="font-display text-4xl tracking-[0.34em] pl-[0.34em]">DRALENA</span>
+          <h1 className="font-display text-2xl font-light mt-3">Admin</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -57,13 +57,13 @@ export default function AdminLoginPage() {
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-3 top-9 text-[var(--muted)] hover:text-white transition-colors"
+              className="absolute right-3 top-9 text-[var(--muted)] hover:text-dralena-ink transition-colors"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          {error && <p className="text-sm text-kult-fire">{error}</p>}
+          {error && <p className="text-sm text-dralena-fire">{error}</p>}
           <Button type="submit" size="lg" className="w-full" loading={isSubmitting}>
             Ingresar al panel
           </Button>

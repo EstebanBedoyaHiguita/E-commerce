@@ -7,18 +7,18 @@ import type { Product, ProductFilters } from "@/types"
 
 export const metadata: Metadata = {
   title: "Catálogo",
-  description: "Explora nuestra colección completa de streetwear multimarca.",
+  description: "Explora toda la colección de lencería DRALENA: conjuntos, encaje, bodies y novia.",
 }
 
 interface PageProps {
   searchParams: {
     categoria?: string
-    marca?: string
-    tallas?: string
+    coleccion?: string
+    tallas_brasier?: string
+    tallas_numero?: string
     orden?: string
     page?: string
     q?: string
-    genero?: string
   }
 }
 
@@ -43,7 +43,6 @@ async function getProducts(filters: ProductFilters): Promise<Product[]> {
 
     if (filters.brand) query = query.eq("brand_id", filters.brand)
     if (filters.search) query = query.ilike("name", `%${filters.search}%`)
-    if ((filters as { gender?: string }).gender) query = query.eq("gender", (filters as { gender?: string }).gender)
 
     if (filters.sortBy === "price_asc") query = query.order("base_price", { ascending: true })
     else if (filters.sortBy === "price_desc") query = query.order("base_price", { ascending: false })
@@ -53,7 +52,16 @@ async function getProducts(filters: ProductFilters): Promise<Product[]> {
     query = query.range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1)
 
     const { data } = await query
-    return (data as Product[]) ?? []
+    let products = (data as Product[]) ?? []
+
+    // El filtro de talla vive en las variantes, no en `products`
+    if (filters.sizes?.length) {
+      products = products.filter((p) =>
+        p.variants?.some((v) => filters.sizes!.includes(v.size))
+      )
+    }
+
+    return products
   } catch {
     return []
   }
@@ -73,14 +81,18 @@ async function getFiltersData() {
 }
 
 export default async function CatalogoPage({ searchParams }: PageProps) {
-  const filters = {
+  const sizes = [
+    ...(searchParams.tallas_brasier?.split(",").filter(Boolean) ?? []),
+    ...(searchParams.tallas_numero?.split(",").filter(Boolean) ?? []),
+  ]
+
+  const filters: ProductFilters = {
     category: searchParams.categoria,
-    brand: searchParams.marca,
-    sizes: searchParams.tallas?.split(",").filter(Boolean),
+    brand: searchParams.coleccion,
+    sizes: sizes.length > 0 ? sizes : undefined,
     sortBy: (searchParams.orden as ProductFilters["sortBy"]) ?? "newest",
     page: Number(searchParams.page ?? 1),
     search: searchParams.q,
-    gender: searchParams.genero,
   }
 
   const [products, { categories, brands }] = await Promise.all([
@@ -91,15 +103,18 @@ export default async function CatalogoPage({ searchParams }: PageProps) {
   return (
     <div className="container mx-auto px-4 md:px-8 py-10">
       <div className="mb-10">
-        <h1 className="font-display text-6xl md:text-8xl tracking-widest">CATÁLOGO</h1>
-        <p className="text-sm mt-2" style={{ color: "var(--muted)" }}>
-          {products.length} piezas encontradas
+        <p className="text-[11px] uppercase tracking-[0.22em] text-[#B98A8F] mb-3">
+          Inicio / Catálogo
+        </p>
+        <h1 className="font-display text-5xl md:text-6xl font-light leading-none">Catálogo</h1>
+        <p className="text-sm mt-3" style={{ color: "var(--muted)" }}>
+          {products.length} {products.length === 1 ? "pieza encontrada" : "piezas encontradas"}
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-10">
         {/* Filters sidebar */}
-        <div className="w-full md:w-56 flex-shrink-0">
+        <div className="w-full md:w-[230px] flex-shrink-0">
           <Suspense>
             <FilterPanel categories={categories} brands={brands} />
           </Suspense>

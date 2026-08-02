@@ -48,7 +48,7 @@ export function ProfileClient({ user, profile, orders }: ProfileClientProps) {
   return (
     <div className="container mx-auto px-4 md:px-8 py-12 max-w-4xl">
       <div className="flex items-baseline justify-between mb-10">
-        <h1 className="font-display text-5xl md:text-7xl tracking-widest">MI PERFIL</h1>
+        <h1 className="font-display text-5xl md:text-6xl font-light">Mi perfil</h1>
         <Button variant="ghost" size="sm" onClick={handleLogout}>Cerrar sesión</Button>
       </div>
 
@@ -59,7 +59,7 @@ export function ProfileClient({ user, profile, orders }: ProfileClientProps) {
             key={t}
             onClick={() => setTab(t)}
             className={`px-6 py-3 text-xs uppercase tracking-widest font-bold border-b-2 -mb-px transition-colors ${
-              tab === t ? "border-kult-neon text-kult-neon" : "border-transparent hover:text-kult-neon"
+              tab === t ? "border-dralena-accent text-dralena-accent" : "border-transparent hover:text-dralena-accent"
             }`}
             style={tab !== t ? { color: "var(--muted)" } : {}}
           >
@@ -72,8 +72,8 @@ export function ProfileClient({ user, profile, orders }: ProfileClientProps) {
       {tab === "orders" && (
         <div className="space-y-4">
           {orders.length === 0 ? (
-            <p className="text-center py-16 font-display text-3xl tracking-widest opacity-30">
-              AÚN NO HAY PEDIDOS
+            <p className="text-center py-16 font-display text-3xl font-light opacity-40">
+              Aún no hay pedidos
             </p>
           ) : (
             orders.map((order) => {

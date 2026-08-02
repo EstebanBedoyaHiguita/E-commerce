@@ -24,7 +24,7 @@ export function DeleteProductButton({ productId, productName }: Props) {
     <button
       onClick={handleDelete}
       disabled={deleting}
-      className="text-xs text-kult-fire hover:underline disabled:opacity-50"
+      className="text-xs text-dralena-fire hover:underline disabled:opacity-50"
     >
       {deleting ? "..." : "Eliminar"}
     </button>

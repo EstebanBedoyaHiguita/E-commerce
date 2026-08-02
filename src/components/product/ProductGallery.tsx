@@ -37,7 +37,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
             key={i}
             onClick={() => setActiveIdx(i)}
             className={`relative flex-shrink-0 h-16 w-14 md:h-20 md:w-16 overflow-hidden border-2 transition-all ${
-              i === activeIdx ? "border-kult-neon" : "border-transparent opacity-60 hover:opacity-100"
+              i === activeIdx ? "border-dralena-accent" : "border-transparent opacity-60 hover:opacity-100"
             }`}
           >
             <Image src={img} alt={`${name} ${i + 1}`} fill className="object-cover object-top" />
@@ -82,14 +82,14 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
           <>
             <button
               onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white hover:bg-kult-neon hover:text-kult-bg transition-colors z-10"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-[#2A2320]/50 text-white hover:bg-dralena-accent hover:text-white transition-colors z-10"
               aria-label="Imagen anterior"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white hover:bg-kult-neon hover:text-kult-bg transition-colors z-10"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#2A2320]/50 text-white hover:bg-dralena-accent hover:text-white transition-colors z-10"
               aria-label="Imagen siguiente"
             >
               <ChevronRight className="h-5 w-5" />
@@ -98,7 +98,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
         )}
 
         {!zoom && (
-          <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 tracking-widest">
+          <div className="absolute bottom-3 right-3 bg-[#2A2320]/60 text-white text-xs px-2.5 py-1.5 tracking-[0.14em]">
             {activeIdx + 1}/{safeImages.length}
           </div>
         )}

@@ -1,27 +1,27 @@
-import { Truck, ShieldCheck, RefreshCw, Layers } from "lucide-react"
+import { PackageOpen, RefreshCw, MessageCircle, ShieldCheck } from "lucide-react"
 import { StaggerReveal } from "@/components/shared/ScrollReveal"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 const reasons = [
   {
-    icon: Truck,
-    title: "Envío rápido",
-    description: "Despachos en 24-48h a todo Colombia. Seguimiento en tiempo real.",
+    icon: PackageOpen,
+    title: "Empaque discreto",
+    description: "Caja neutra, sin marca visible. Nadie sabe qué hay dentro.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Cambios en 30 días",
+    description: "Si la talla no fue la ideal, la cambiamos sin costo.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Asesoría por WhatsApp",
+    description: "Te ayudamos a elegir talla y estilo antes de comprar.",
   },
   {
     icon: ShieldCheck,
     title: "Pago seguro",
-    description: "Transacciones protegidas con Bold. Tus datos siempre seguros.",
-  },
-  {
-    icon: RefreshCw,
-    title: "Devoluciones",
-    description: "30 días para cambios y devoluciones sin preguntas.",
-  },
-  {
-    icon: Layers,
-    title: "Variedad real",
-    description: "Las mejores marcas streetwear en un solo lugar.",
+    description: "Tarjeta, PSE, Nequi y Daviplata a través de Bold.",
   },
 ]
 
@@ -30,8 +30,8 @@ export function WhyUs() {
     <section className="py-20 bg-[var(--surface)]">
       <div className="container mx-auto px-4 md:px-8">
         <ScrollReveal>
-          <h2 className="font-display text-5xl md:text-7xl tracking-widest mb-16 text-center">
-            ¿POR QUÉ KULT?
+          <h2 className="font-display text-4xl md:text-5xl font-light mb-14 text-center">
+            Comprar en DRALENA
           </h2>
         </ScrollReveal>
 
@@ -42,12 +42,12 @@ export function WhyUs() {
           {reasons.map((r) => {
             const Icon = r.icon
             return (
-              <div key={r.title} className="flex flex-col items-start gap-4">
-                <div className="p-3 border border-kult-neon/30 text-kult-neon">
-                  <Icon className="h-6 w-6" />
+              <div key={r.title} className="flex flex-col items-start gap-3">
+                <div className="h-11 w-11 rounded-full border border-[#C9A9AC] grid place-items-center text-dralena-accent">
+                  <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="font-display text-2xl tracking-widest">{r.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                <h3 className="font-display text-2xl">{r.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#7d746e" }}>
                   {r.description}
                 </p>
               </div>

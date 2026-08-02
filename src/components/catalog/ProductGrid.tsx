@@ -21,7 +21,9 @@ export function ProductGrid({ products, loading }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
-        <p className="font-display text-4xl tracking-widest opacity-30">SIN RESULTADOS</p>
+        <p className="font-display text-4xl font-light" style={{ color: "var(--muted)" }}>
+          Sin resultados
+        </p>
         <p className="text-sm mt-2" style={{ color: "var(--muted)" }}>
           Prueba con otros filtros
         </p>

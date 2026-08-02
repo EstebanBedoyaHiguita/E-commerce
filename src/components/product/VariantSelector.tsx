@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import type { ProductVariant } from "@/types"
 
@@ -49,12 +50,12 @@ export function VariantSelector({ variants, onVariantChange }: VariantSelectorPr
       {colors.length > 0 && (
         <div>
           <div className="flex justify-between items-center mb-3">
-            <span className="text-xs uppercase tracking-widest font-bold">Color</span>
+            <span className="text-[10.5px] uppercase tracking-[0.2em] font-semibold">Color</span>
             {selectedColor && (
-              <span className="text-xs" style={{ color: "var(--muted)" }}>{selectedColor}</span>
+              <span className="text-[12.5px]" style={{ color: "var(--muted)" }}>{selectedColor}</span>
             )}
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {colors.map((color) => {
               const variant = variants.find((v) => v.color === color)
               const available = isColorAvailable(color)
@@ -64,19 +65,19 @@ export function VariantSelector({ variants, onVariantChange }: VariantSelectorPr
                   onClick={() => available && handleColorSelect(color)}
                   title={color}
                   className={cn(
-                    "relative h-8 w-8 rounded-full border-2 transition-all",
-                    selectedColor === color ? "border-kult-neon scale-110" : "border-transparent",
+                    "relative h-9 w-9 rounded-full border-2 transition-all",
+                    selectedColor === color ? "border-dralena-accent scale-110" : "border-[#E0D0CC]",
                     !available && "opacity-30 cursor-not-allowed"
                   )}
                   style={{
-                    backgroundColor: variant?.color_hex ?? "#888",
+                    backgroundColor: variant?.color_hex ?? "#D8C4C0",
                   }}
                   aria-label={color}
                   disabled={!available}
                 >
                   {!available && (
                     <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="block h-px w-full bg-white/60 rotate-45" />
+                      <span className="block h-px w-full bg-[#2A2320]/50 rotate-45" />
                     </span>
                   )}
                 </button>
@@ -89,12 +90,16 @@ export function VariantSelector({ variants, onVariantChange }: VariantSelectorPr
       {/* Size selector */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <span className="text-xs uppercase tracking-widest font-bold">Talla</span>
-          <button className="text-xs underline" style={{ color: "var(--muted)" }}>
+          <span className="text-[10.5px] uppercase tracking-[0.2em] font-semibold">Talla</span>
+          <Link
+            href="/tallas"
+            className="text-[12.5px] border-b border-[#C9B4B0] hover:text-dralena-accent hover:border-dralena-accent transition-colors"
+            style={{ color: "var(--muted)" }}
+          >
             Guía de tallas
-          </button>
+          </Link>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           {sizes.map((size) => {
             const available = isSizeAvailable(size)
             return (
@@ -103,12 +108,12 @@ export function VariantSelector({ variants, onVariantChange }: VariantSelectorPr
                 onClick={() => available && handleSizeSelect(size)}
                 disabled={!available}
                 className={cn(
-                  "h-11 min-w-[44px] px-3 text-sm font-semibold border transition-all",
+                  "h-11 min-w-[56px] px-3 text-sm border transition-all",
                   selectedSize === size
-                    ? "border-kult-neon text-kult-neon bg-kult-neon/5"
+                    ? "border-dralena-accent bg-[#F9EEF0] text-dralena-accent font-medium"
                     : available
-                    ? "border-[var(--border)] hover:border-[var(--foreground)]"
-                    : "border-[var(--border)] opacity-30 cursor-not-allowed line-through"
+                    ? "border-[#E0D0CC] text-[#5c524d] hover:border-dralena-ink"
+                    : "border-[#E0D0CC] text-[#C5B9B3] cursor-not-allowed line-through"
                 )}
               >
                 {size}
@@ -120,10 +125,12 @@ export function VariantSelector({ variants, onVariantChange }: VariantSelectorPr
 
       {/* Stock indicator */}
       {selectedVariant && (
-        <p className="text-xs" style={{ color: "var(--muted)" }}>
+        <p
+          className={cn("text-[12.5px]", selectedVariant.stock <= 3 ? "text-dralena-accent" : "text-dralena-muted")}
+        >
           {selectedVariant.stock <= 3
-            ? `⚡ Solo quedan ${selectedVariant.stock} unidades`
-            : `✓ En stock`}
+            ? `Solo quedan ${selectedVariant.stock} unidades`
+            : "En stock"}
         </p>
       )}
     </div>

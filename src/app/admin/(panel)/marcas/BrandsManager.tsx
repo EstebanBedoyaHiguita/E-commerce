@@ -27,7 +27,7 @@ export function BrandsManager({ initialBrands }: { initialBrands: Brand[] }) {
       setBrands((p) => [...p, data])
       setName(""); setDescription("")
     } else {
-      setError("Error al crear la marca")
+      setError("Error al crear la colección")
     }
     setLoading(false)
   }
@@ -39,23 +39,23 @@ export function BrandsManager({ initialBrands }: { initialBrands: Brand[] }) {
 
   return (
     <div className="max-w-xl space-y-8">
-      <div className="space-y-3 border border-kult-border p-6">
-        <h2 className="font-display text-xl tracking-widest">NUEVA MARCA</h2>
-        <Input label="Nombre" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ej: Nike" />
+      <div className="space-y-3 border border-dralena-border p-6">
+        <h2 className="font-display text-xl font-light">Nueva colección</h2>
+        <Input label="Nombre" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ej: Flor de Loto" />
         <Input label="Descripción (opcional)" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descripción breve" />
-        {error && <p className="text-xs text-kult-fire">{error}</p>}
-        <Button onClick={create} loading={loading}>Crear marca</Button>
+        {error && <p className="text-xs text-dralena-fire">{error}</p>}
+        <Button onClick={create} loading={loading}>Crear colección</Button>
       </div>
 
       <div className="space-y-2">
-        {brands.length === 0 && <p className="text-sm" style={{ color: "var(--muted)" }}>No hay marcas aún.</p>}
+        {brands.length === 0 && <p className="text-sm" style={{ color: "var(--muted)" }}>No hay colecciones aún.</p>}
         {brands.map((b) => (
-          <div key={b.id} className="flex items-center justify-between border border-kult-border px-4 py-3">
+          <div key={b.id} className="flex items-center justify-between border border-dralena-border px-4 py-3">
             <div>
               <p className="font-semibold text-sm">{b.name}</p>
               {b.description && <p className="text-xs" style={{ color: "var(--muted)" }}>{b.description}</p>}
             </div>
-            <button onClick={() => remove(b.id)} className="p-1 hover:text-kult-fire transition-colors">
+            <button onClick={() => remove(b.id)} className="p-1 hover:text-dralena-fire transition-colors">
               <Trash2 className="h-4 w-4" />
             </button>
           </div>

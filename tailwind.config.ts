@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,22 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        kult: {
-          bg: "#0a0a0a",
-          surface: "#141414",
-          border: "#222222",
-          muted: "#888888",
-          neon: "#e8ff00",
-          fire: "#ff3c00",
-          light: "#f5f5f0",
-          "light-surface": "#ffffff",
-          "light-border": "#e0e0d8",
-          "light-muted": "#555555",
+        dralena: {
+          bg: "#FBF7F5",
+          surface: "#F3E7E4",
+          border: "#EFE4E0",
+          muted: "#9C908A",
+          ink: "#2A2320",
+          accent: "#A8555E",
+          "accent-soft": "#EBD9D6",
+          fire: "#B23A52",
+          gold: "#C9A227",
         },
       },
       fontFamily: {
-        display: ["var(--font-bebas)", "sans-serif"],
-        body: ["var(--font-dm-sans)", "sans-serif"],
+        display: ["var(--font-cormorant)", "serif"],
+        body: ["var(--font-jost)", "sans-serif"],
       },
       animation: {
         marquee: "marquee 30s linear infinite",

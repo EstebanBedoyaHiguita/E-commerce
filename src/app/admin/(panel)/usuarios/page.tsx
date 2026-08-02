@@ -6,7 +6,7 @@ import { UserManager } from "./UserManager"
 async function getSession() {
   const cookieStore = await cookies()
   try {
-    const raw = cookieStore.get("ultrastore-admin-session")?.value
+    const raw = cookieStore.get("dralena-admin-session")?.value
     if (!raw) return null
     return JSON.parse(Buffer.from(raw, "base64").toString())
   } catch { return null }
@@ -28,7 +28,7 @@ export default async function UsuariosPage() {
   const users = await getAdminUsers()
   return (
     <div className="p-8 space-y-6">
-      <h1 className="font-display text-4xl tracking-widest">USUARIOS ADMIN</h1>
+      <h1 className="font-display text-4xl font-light">USUARIOS ADMIN</h1>
       <UserManager users={users} />
     </div>
   )

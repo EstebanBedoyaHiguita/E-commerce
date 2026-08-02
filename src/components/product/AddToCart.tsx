@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Heart, ShoppingBag, Minus, Plus } from "lucide-react"
+import { Heart, Minus, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCartStore } from "@/stores/cartStore"
 import { useWishlistStore } from "@/stores/wishlistStore"
@@ -28,7 +28,7 @@ export function AddToCart({ product, selectedVariant }: AddToCartProps) {
       productId: product.id,
       variantId: selectedVariant.id,
       name: product.name,
-      brand: product.brand?.name ?? "",
+      brand: "DRALENA",
       size: selectedVariant.size,
       color: selectedVariant.color,
       price: selectedVariant.price_override ?? product.base_price,
@@ -43,22 +43,24 @@ export function AddToCart({ product, selectedVariant }: AddToCartProps) {
     <div className="space-y-4">
       {/* Quantity */}
       <div className="flex items-center gap-4">
-        <span className="text-xs uppercase tracking-widest font-bold">Cantidad</span>
-        <div className="flex items-center border border-[var(--border)]">
+        <span className="text-[10.5px] uppercase tracking-[0.2em] font-semibold">Cantidad</span>
+        <div className="flex items-center border border-[#E0D0CC]">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="px-3 py-2 hover:text-kult-neon transition-colors"
+            className="px-4 py-2.5 hover:text-dralena-accent transition-colors disabled:opacity-40"
             disabled={quantity <= 1}
+            aria-label="Reducir cantidad"
           >
             <Minus className="h-4 w-4" />
           </button>
-          <span className="px-4 py-2 text-sm font-semibold min-w-[40px] text-center">
+          <span className="px-4 py-2.5 text-sm font-medium min-w-[40px] text-center">
             {quantity}
           </span>
           <button
             onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
-            className="px-3 py-2 hover:text-kult-neon transition-colors"
+            className="px-4 py-2.5 hover:text-dralena-accent transition-colors disabled:opacity-40"
             disabled={quantity >= maxQty}
+            aria-label="Aumentar cantidad"
           >
             <Plus className="h-4 w-4" />
           </button>
@@ -69,21 +71,20 @@ export function AddToCart({ product, selectedVariant }: AddToCartProps) {
       <div className="flex gap-3">
         <Button
           size="lg"
-          className="flex-1 gap-2"
+          className="flex-1"
           disabled={!canAdd}
           onClick={handleAdd}
         >
-          <ShoppingBag className="h-5 w-5" />
           {!selectedVariant
             ? "Selecciona talla y color"
             : selectedVariant.stock === 0
             ? "Sin stock"
-            : "Agregar al carrito"}
+            : "Agregar a la bolsa"}
         </Button>
         <Button
           variant="secondary"
           size="lg"
-          className={cn("px-4", isWishlisted && "border-kult-neon text-kult-neon")}
+          className={cn("px-4 !text-dralena-accent", isWishlisted && "border-dralena-accent")}
           onClick={() => toggle(product.id)}
           aria-label="Agregar a wishlist"
         >
@@ -95,7 +96,7 @@ export function AddToCart({ product, selectedVariant }: AddToCartProps) {
       </div>
 
       {!selectedVariant && (
-        <p className="text-xs text-kult-fire">Selecciona color y talla para continuar</p>
+        <p className="text-xs text-dralena-fire">Selecciona color y talla para continuar</p>
       )}
     </div>
   )

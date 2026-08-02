@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createAdminClient } from "@/lib/supabase/server"
-import { notifyOrderEvent } from "@/lib/whatsapp/notifier"
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { full_name, email, phone, address, city, department, notes, items, total, paymentMethod } = body
+    const { full_name, email, phone, address, city, department, notes, items, total } = body
 
     const supabase = await createAdminClient()
 
@@ -18,7 +17,7 @@ export async function POST(req: NextRequest) {
         status: "pendiente",
         total,
         shipping_address: { full_name, phone, address, city, department, notes },
-        payment_method: paymentMethod,
+        payment_method: "bold",
       })
       .select()
       .single()
@@ -54,15 +53,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Notify via WhatsApp if contraentrega (bold notifies via webhook)
-    if (paymentMethod === "contraentrega") {
-      await notifyOrderEvent({
-        type: "confirmed",
-        orderId: order.id,
-        customerPhone: phone,
-        customerName: full_name,
-      })
-    }
+    // El pago va por Bold: la confirmación se notifica desde el webhook de Bold.
 
     return NextResponse.json({ orderId: order.id })
   } catch (err) {

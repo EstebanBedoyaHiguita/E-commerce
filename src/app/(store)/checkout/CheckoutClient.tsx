@@ -28,7 +28,6 @@ const STEPS = ["Datos", "Pago", "Confirmación"]
 
 export function CheckoutClient() {
   const [step, setStep] = useState(0)
-  const [paymentMethod, setPaymentMethod] = useState<"bold" | "contraentrega">("bold")
   const [orderId, setOrderId] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [formData, setFormData] = useState<FormData | null>(null)
@@ -42,8 +41,10 @@ export function CheckoutClient() {
   if (items.length === 0 && !orderId) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <p className="font-display text-4xl tracking-widest opacity-30">TU CARRITO ESTÁ VACÍO</p>
-        <Link href="/catalogo" className="mt-4 inline-block text-kult-neon underline">
+        <p className="font-display text-4xl font-light" style={{ color: "var(--muted)" }}>
+          Tu bolsa está vacía
+        </p>
+        <Link href="/catalogo" className="mt-4 inline-block text-dralena-accent underline">
           Ir al catálogo
         </Link>
       </div>
@@ -66,7 +67,7 @@ export function CheckoutClient() {
         ...formData,
         items,
         total: totalPrice(),
-        paymentMethod,
+        paymentMethod: "bold",
       }),
     })
 
@@ -74,9 +75,6 @@ export function CheckoutClient() {
     setOrderId(newOrderId)
     clearCart()
 
-    if (paymentMethod === "bold" && newOrderId) {
-      // Bold widget is injected here — for now redirect to confirmation
-    }
     setStep(2)
     setSubmitting(false)
   }
@@ -88,18 +86,18 @@ export function CheckoutClient() {
         {STEPS.map((s, i) => (
           <div key={s} className="flex items-center gap-0">
             <div className={cn(
-              "flex items-center justify-center h-8 w-8 text-xs font-bold border transition-all",
-              i < step ? "bg-kult-neon border-kult-neon text-kult-bg" :
-              i === step ? "border-kult-neon text-kult-neon" :
-              "border-[var(--border)] opacity-40"
+              "flex items-center justify-center h-8 w-8 text-xs font-semibold border transition-all",
+              i < step ? "bg-dralena-accent border-dralena-accent text-white" :
+              i === step ? "border-dralena-accent text-dralena-accent" :
+              "border-[#C9B4B0] opacity-40"
             )}>
               {i < step ? <Check className="h-4 w-4" /> : i + 1}
             </div>
             <span className={cn(
-              "ml-2 text-xs uppercase tracking-widest",
-              i === step ? "text-kult-neon font-bold" : "opacity-40"
+              "ml-2 text-[11px] uppercase tracking-[0.16em]",
+              i === step ? "text-dralena-accent font-semibold" : "opacity-40"
             )}>{s}</span>
-            {i < STEPS.length - 1 && <div className="w-12 h-px mx-4 bg-[var(--border)]" />}
+            {i < STEPS.length - 1 && <div className="w-12 h-px mx-4 bg-[#E0D0CC]" />}
           </div>
         ))}
       </div>
@@ -109,7 +107,7 @@ export function CheckoutClient() {
         <div className="lg:col-span-3">
           {step === 0 && (
             <form onSubmit={handleSubmit(onDataSubmit)} className="space-y-5">
-              <h2 className="font-display text-3xl tracking-widest mb-6">DATOS DE ENTREGA</h2>
+              <h2 className="font-display text-4xl font-light mb-6">Datos de entrega</h2>
               <Input label="Nombre completo" error={errors.full_name?.message} {...register("full_name")} />
               <Input label="Email" type="email" error={errors.email?.message} {...register("email")} />
               <Input label="Teléfono / WhatsApp" type="tel" error={errors.phone?.message} hint="Requerido para notificaciones" {...register("phone")} />
@@ -125,45 +123,23 @@ export function CheckoutClient() {
 
           {step === 1 && (
             <div className="space-y-6">
-              <h2 className="font-display text-3xl tracking-widest mb-6">MÉTODO DE PAGO</h2>
+              <h2 className="font-display text-4xl font-light mb-6">Método de pago</h2>
 
-              <div className="space-y-3">
-                <button
-                  onClick={() => setPaymentMethod("bold")}
-                  className={cn(
-                    "w-full flex items-start gap-4 p-5 border transition-all text-left",
-                    paymentMethod === "bold" ? "border-kult-neon" : "border-[var(--border)] hover:border-[var(--muted)]"
-                  )}
-                >
-                  <div className={cn("h-5 w-5 mt-0.5 rounded-full border-2 flex-shrink-0 flex items-center justify-center", paymentMethod === "bold" ? "border-kult-neon" : "border-[var(--muted)]")}>
-                    {paymentMethod === "bold" && <div className="h-2.5 w-2.5 rounded-full bg-kult-neon" />}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm uppercase tracking-widest">Pagar con Bold</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Tarjeta débito/crédito, PSE, Nequi, Daviplata</p>
-                  </div>
-                  <span className="ml-auto font-display text-lg tracking-widest text-kult-neon">BOLD</span>
-                </button>
-
-                <button
-                  onClick={() => setPaymentMethod("contraentrega")}
-                  className={cn(
-                    "w-full flex items-start gap-4 p-5 border transition-all text-left",
-                    paymentMethod === "contraentrega" ? "border-kult-neon" : "border-[var(--border)] hover:border-[var(--muted)]"
-                  )}
-                >
-                  <div className={cn("h-5 w-5 mt-0.5 rounded-full border-2 flex-shrink-0 flex items-center justify-center", paymentMethod === "contraentrega" ? "border-kult-neon" : "border-[var(--muted)]")}>
-                    {paymentMethod === "contraentrega" && <div className="h-2.5 w-2.5 rounded-full bg-kult-neon" />}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm uppercase tracking-widest">Contraentrega</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Paga en efectivo al recibir tu pedido</p>
-                  </div>
-                </button>
+              <div className="border border-dralena-accent bg-[#FBF2F3] p-5 flex items-start gap-4">
+                <div className="h-5 w-5 mt-0.5 rounded-full border-2 border-dralena-accent flex-shrink-0 flex items-center justify-center">
+                  <div className="h-2.5 w-2.5 rounded-full bg-dralena-accent" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[12.5px] font-semibold uppercase tracking-[0.14em]">Pagar con Bold</p>
+                  <p className="text-[12.5px] mt-1.5" style={{ color: "#8a7d78" }}>
+                    Tarjeta débito/crédito, PSE, Nequi, Daviplata
+                  </p>
+                </div>
+                <span className="font-display text-xl tracking-[0.2em] text-dralena-accent">BOLD</span>
               </div>
 
               <div className="flex gap-3">
-                <Button variant="ghost" size="lg" onClick={() => setStep(0)}>Volver</Button>
+                <Button variant="secondary" size="lg" onClick={() => setStep(0)}>Volver</Button>
                 <Button size="lg" className="flex-1" loading={submitting} onClick={onPlaceOrder}>
                   Confirmar pedido
                 </Button>
@@ -173,10 +149,10 @@ export function CheckoutClient() {
 
           {step === 2 && (
             <div className="text-center py-12">
-              <div className="inline-flex h-20 w-20 items-center justify-center border-2 border-kult-neon text-kult-neon mb-6">
-                <Check className="h-10 w-10" />
+              <div className="inline-flex h-20 w-20 items-center justify-center rounded-full border border-dralena-accent text-dralena-accent mb-6">
+                <Check className="h-9 w-9" />
               </div>
-              <h2 className="font-display text-4xl tracking-widest">¡PEDIDO CONFIRMADO!</h2>
+              <h2 className="font-display text-4xl font-light">¡Pedido confirmado!</h2>
               <p className="mt-3 text-sm" style={{ color: "var(--muted)" }}>
                 Te enviamos un email de confirmación. Pronto recibirás actualizaciones por WhatsApp.
               </p>
@@ -196,26 +172,33 @@ export function CheckoutClient() {
         {/* Order summary */}
         {step < 2 && (
           <div className="lg:col-span-2">
-            <div className="border border-[var(--border)] p-5 sticky top-24">
-              <h3 className="font-display text-xl tracking-widest mb-4">RESUMEN</h3>
-              <ul className="space-y-3 mb-4">
+            <div className="border border-[var(--border)] bg-[var(--surface)] p-6 sticky top-24 space-y-4">
+              <h3 className="font-display text-2xl font-light">Resumen</h3>
+              <ul className="space-y-3">
                 {items.map((item) => (
-                  <li key={item.variantId} className="flex gap-3 text-sm">
-                    <div className="relative h-14 w-12 flex-shrink-0 bg-[var(--border)]">
+                  <li key={item.variantId} className="flex gap-3 items-center text-sm">
+                    <div className="relative h-14 w-12 flex-shrink-0 bg-[#E3D2CF]">
                       <Image src={item.image} alt={item.name} fill className="object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold truncate">{item.name}</p>
-                      <p className="text-xs" style={{ color: "var(--muted)" }}>{item.size} · {item.color} · ×{item.quantity}</p>
+                      <p className="font-medium truncate">{item.name}</p>
+                      <p className="text-[11.5px]" style={{ color: "#8a7d78" }}>
+                        {item.size} · {item.color} · ×{item.quantity}
+                      </p>
                     </div>
-                    <span className="font-display text-sm flex-shrink-0">{formatCOP(item.price * item.quantity)}</span>
+                    <span className="text-[13.5px] text-dralena-accent flex-shrink-0">
+                      {formatCOP(item.price * item.quantity)}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-[var(--border)] pt-3 flex justify-between items-baseline">
-                <span className="text-xs uppercase tracking-widest" style={{ color: "var(--muted)" }}>Total</span>
-                <span className="font-display text-2xl tracking-wider">{formatCOP(totalPrice())}</span>
+              <div className="border-t border-[#E1CFCB] pt-4 flex justify-between items-baseline">
+                <span className="text-[11px] uppercase tracking-[0.16em]" style={{ color: "#8a7d78" }}>Total</span>
+                <span className="font-display text-3xl font-light">{formatCOP(totalPrice())}</span>
               </div>
+              <p className="text-xs leading-relaxed" style={{ color: "#8a7d78" }}>
+                Tu pedido llega en empaque neutro, sin marca visible.
+              </p>
             </div>
           </div>
         )}

@@ -25,14 +25,14 @@ export function CustomCursor() {
     const onEnterLink = () => {
       cursor.style.width = "40px"
       cursor.style.height = "40px"
-      cursor.style.backgroundColor = "#e8ff00"
+      cursor.style.backgroundColor = "#A8555E"
       cursor.style.mixBlendMode = "difference"
     }
 
     const onLeaveLink = () => {
       cursor.style.width = "8px"
       cursor.style.height = "8px"
-      cursor.style.backgroundColor = "#e8ff00"
+      cursor.style.backgroundColor = "#A8555E"
       cursor.style.mixBlendMode = "normal"
     }
 
@@ -67,12 +67,12 @@ export function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-kult-neon transition-all duration-100 hidden lg:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-dralena-accent transition-all duration-100 hidden lg:block"
         style={{ willChange: "transform" }}
       />
       <div
         ref={followerRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9998] h-8 w-8 rounded-full border border-kult-neon/40 hidden lg:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9998] h-8 w-8 rounded-full border border-dralena-accent/40 hidden lg:block"
         style={{ willChange: "transform" }}
       />
     </>

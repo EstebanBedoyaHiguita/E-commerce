@@ -60,28 +60,28 @@ export function UserManager({ users }: Props) {
       </Button>
 
       {showForm && (
-        <form onSubmit={handleSubmit(onSubmit)} className="border border-kult-border p-6 space-y-4 max-w-md">
-          <h3 className="font-display text-xl tracking-widest">NUEVO USUARIO</h3>
+        <form onSubmit={handleSubmit(onSubmit)} className="border border-dralena-border p-6 space-y-4 max-w-md">
+          <h3 className="font-display text-xl font-light">NUEVO USUARIO</h3>
           <Input label="Nombre" error={errors.name?.message} {...register("name")} />
           <Input label="Email" type="email" error={errors.email?.message} {...register("email")} />
           <Input label="Contraseña" type="password" error={errors.password?.message} {...register("password")} />
           <div>
             <label className="block text-xs uppercase tracking-widest mb-1.5 font-bold" style={{ color: "var(--muted)" }}>Rol</label>
-            <select className="w-full h-12 px-4 bg-transparent border border-kult-border text-sm focus:outline-none focus:border-kult-neon" {...register("role")}>
+            <select className="w-full h-12 px-4 bg-transparent border border-dralena-border text-sm focus:outline-none focus:border-dralena-accent" {...register("role")}>
               <option value="agente">Agente</option>
               <option value="admin">Admin</option>
               <option value="superadmin">Superadmin</option>
             </select>
           </div>
-          {error && <p className="text-xs text-kult-fire">{error}</p>}
+          {error && <p className="text-xs text-dralena-fire">{error}</p>}
           <Button type="submit" loading={isSubmitting}>Crear usuario</Button>
         </form>
       )}
 
-      <div className="border border-kult-border overflow-x-auto">
+      <div className="border border-dralena-border overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-kult-border">
+            <tr className="border-b border-dralena-border">
               {["Nombre", "Email", "Rol", "Estado", ""].map((h) => (
                 <th key={h} className="text-left px-5 py-3 text-[11px] uppercase tracking-widest" style={{ color: "var(--muted)" }}>{h}</th>
               ))}
@@ -89,12 +89,12 @@ export function UserManager({ users }: Props) {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u.id} className="border-b border-kult-border hover:bg-white/5">
+              <tr key={u.id} className="border-b border-dralena-border hover:bg-white/5">
                 <td className="px-5 py-3 font-semibold">{u.name}</td>
                 <td className="px-5 py-3 text-xs" style={{ color: "var(--muted)" }}>{u.email}</td>
                 <td className="px-5 py-3 text-xs uppercase tracking-widest">{u.role}</td>
                 <td className="px-5 py-3">
-                  <span className={`text-xs font-bold ${u.is_active ? "text-green-400" : "text-kult-fire"}`}>
+                  <span className={`text-xs font-bold ${u.is_active ? "text-green-400" : "text-dralena-fire"}`}>
                     {u.is_active ? "Activo" : "Inactivo"}
                   </span>
                 </td>

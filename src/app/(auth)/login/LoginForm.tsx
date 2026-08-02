@@ -46,10 +46,10 @@ export function LoginForm() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-[var(--background)]">
       <div className="w-full max-w-sm">
         <div className="mb-10 text-center">
-          <Link href="/" className="font-display text-5xl tracking-widest hover:text-kult-neon transition-colors">
-            KULT
+          <Link href="/" className="font-display text-4xl tracking-[0.34em] pl-[0.34em] hover:text-dralena-accent transition-colors">
+            DRALENA
           </Link>
-          <h1 className="font-display text-3xl tracking-widest mt-4">INICIAR SESIÓN</h1>
+          <h1 className="font-display text-3xl font-light mt-4">Iniciar sesión</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -68,12 +68,12 @@ export function LoginForm() {
             {...register("password")}
           />
 
-          {error && <p className="text-sm text-kult-fire">{error}</p>}
+          {error && <p className="text-sm text-dralena-fire">{error}</p>}
 
           <div className="text-right">
             <Link
               href="/recuperar-contrasena"
-              className="text-xs hover:text-kult-neon transition-colors"
+              className="text-xs hover:text-dralena-accent transition-colors"
               style={{ color: "var(--muted)" }}
             >
               ¿Olvidaste tu contraseña?
@@ -87,7 +87,7 @@ export function LoginForm() {
 
         <p className="text-center text-sm mt-6" style={{ color: "var(--muted)" }}>
           ¿No tienes cuenta?{" "}
-          <Link href="/registro" className="text-kult-neon font-semibold hover:underline">
+          <Link href="/registro" className="text-dralena-accent font-semibold hover:underline">
             Regístrate
           </Link>
         </p>
@@ -95,7 +95,7 @@ export function LoginForm() {
         <div className="mt-8 pt-8 border-t border-[var(--border)] text-center">
           <Link
             href="/checkout"
-            className="text-xs hover:text-kult-neon transition-colors"
+            className="text-xs hover:text-dralena-accent transition-colors"
             style={{ color: "var(--muted)" }}
           >
             Continuar como invitado →

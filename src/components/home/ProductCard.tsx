@@ -30,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
       productId: product.id,
       variantId: firstVariant.id,
       name: product.name,
-      brand: product.brand?.name ?? "",
+      brand: "DRALENA",
       size: firstVariant.size,
       color: firstVariant.color,
       price,
@@ -56,18 +56,15 @@ export function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
 
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-kult-bg/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
         {/* Action buttons */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2 translate-x-10 group-hover:translate-x-0 transition-transform duration-300">
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
           <button
             onClick={(e) => { e.preventDefault(); toggle(product.id) }}
             className={cn(
-              "p-2 backdrop-blur-sm transition-colors",
+              "h-8 w-8 rounded-full grid place-items-center backdrop-blur-sm transition-colors",
               isWishlisted
-                ? "bg-kult-neon text-kult-bg"
-                : "bg-black/60 text-white hover:bg-kult-neon hover:text-kult-bg"
+                ? "bg-dralena-accent text-white"
+                : "bg-[var(--background)]/90 text-dralena-accent hover:bg-dralena-accent hover:text-white"
             )}
             aria-label="Agregar a wishlist"
           >
@@ -75,26 +72,33 @@ export function ProductCard({ product }: ProductCardProps) {
           </button>
           <button
             onClick={handleQuickAdd}
-            className="p-2 bg-black/60 text-white hover:bg-kult-neon hover:text-kult-bg backdrop-blur-sm transition-colors"
-            aria-label="Agregar al carrito"
+            className="h-8 w-8 rounded-full grid place-items-center bg-[var(--background)]/90 text-dralena-accent hover:bg-dralena-accent hover:text-white backdrop-blur-sm transition-colors opacity-0 group-hover:opacity-100"
+            aria-label="Agregar a la bolsa"
           >
             <ShoppingBag className="h-4 w-4" />
           </button>
         </div>
 
-        {/* New badge */}
-        {/* Add logic for new products if needed */}
+        {/* Quick add overlay */}
+        <button
+          onClick={handleQuickAdd}
+          className="absolute inset-x-0 bottom-0 bg-[#2A2320]/90 text-[var(--background)] py-3.5 text-[11px] uppercase tracking-[0.18em] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          Agregar a la bolsa
+        </button>
       </div>
 
       {/* Info */}
-      <div className="mt-3 space-y-0.5">
-        <p className="text-[11px] uppercase tracking-widest" style={{ color: "var(--muted)" }}>
-          {product.brand?.name}
-        </p>
-        <h3 className="text-sm font-semibold truncate group-hover:text-kult-neon transition-colors">
+      <div className="mt-3.5 flex flex-col gap-1">
+        <h3 className="font-display text-xl leading-tight truncate group-hover:text-dralena-accent transition-colors">
           {product.name}
         </h3>
-        <p className="font-display text-lg tracking-wider">{formatCOP(price)}</p>
+        {product.category?.name && (
+          <p className="text-[11px] uppercase tracking-[0.1em]" style={{ color: "var(--muted)" }}>
+            {product.category.name}
+          </p>
+        )}
+        <p className="text-sm text-dralena-accent">{formatCOP(price)}</p>
       </div>
     </Link>
   )

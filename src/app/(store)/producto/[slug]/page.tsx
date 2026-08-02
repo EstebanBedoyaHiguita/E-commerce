@@ -78,8 +78,8 @@ export default async function ProductPage({ params }: PageProps) {
       {relatedProducts.length > 0 && (
         <section className="mt-24">
           <ScrollReveal>
-            <h2 className="font-display text-4xl md:text-5xl tracking-widest mb-8">
-              TAMBIÉN TE PUEDE GUSTAR
+            <h2 className="font-display text-4xl font-light mb-8">
+              También te puede gustar
             </h2>
           </ScrollReveal>
           <ProductGrid products={relatedProducts} />

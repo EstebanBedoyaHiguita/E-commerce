@@ -1,11 +1,11 @@
 import { HeroSection } from "@/components/home/HeroSection"
 import { Marquee } from "@/components/home/Marquee"
 import { CategoryGrid } from "@/components/home/CategoryGrid"
-import { NewArrivalsGrid } from "@/components/home/NewArrivalsGrid"
-import { FeaturedGrid } from "@/components/home/FeaturedGrid"
+import { ProductCarousel } from "@/components/home/ProductCarousel"
 import { CampaignBanner } from "@/components/home/CampaignBanner"
-import { BrandsCarousel } from "@/components/home/BrandsCarousel"
+import { OfferCountdown } from "@/components/home/OfferCountdown"
 import { WhyUs } from "@/components/home/WhyUs"
+import { Testimonials } from "@/components/home/Testimonials"
 import { createClient } from "@/lib/supabase/server"
 import type { Product } from "@/types"
 
@@ -24,7 +24,7 @@ async function getNewArrivals(): Promise<Product[]> {
       .select(PRODUCT_QUERY)
       .eq("is_active", true)
       .order("created_at", { ascending: false })
-      .limit(4)
+      .limit(10)
     return (data as Product[]) ?? []
   } catch {
     return []
@@ -46,6 +46,14 @@ async function getFeaturedProducts(): Promise<Product[]> {
   }
 }
 
+/** Fin de la promoción: próximo domingo a medianoche. */
+function getOfferEnd(): Date {
+  const end = new Date()
+  end.setHours(23, 59, 59, 0)
+  end.setDate(end.getDate() + ((7 - end.getDay()) % 7 || 7))
+  return end
+}
+
 export default async function HomePage() {
   const [newArrivals, featuredProducts] = await Promise.all([
     getNewArrivals(),
@@ -56,13 +64,18 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <Marquee accent />
-      <NewArrivalsGrid products={newArrivals} />
       <CategoryGrid />
+      <ProductCarousel products={newArrivals} title="Novedades" />
       <CampaignBanner />
-      <Marquee reverse />
-      <FeaturedGrid products={featuredProducts} />
-      <BrandsCarousel />
+      <Marquee serif reverse />
+      <OfferCountdown endsAt={getOfferEnd()} />
+      <ProductCarousel
+        products={featuredProducts}
+        title="Los más vendidos"
+        eyebrow="Favoritos de nuestras clientas"
+      />
       <WhyUs />
+      <Testimonials />
     </>
   )
 }

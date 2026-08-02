@@ -16,8 +16,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
-            style={{ color: "var(--muted)" }}
+            className="text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: "#5c524d" }}
           >
             {label}
           </label>
@@ -26,18 +26,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           ref={ref}
           className={cn(
-            "w-full h-12 px-4 bg-transparent border font-body text-sm",
-            "placeholder:text-[var(--muted)] text-[var(--foreground)]",
-            "focus:outline-none focus:border-kult-neon transition-colors duration-200",
+            "w-full h-12 px-4 bg-white border font-body text-sm",
+            "placeholder:text-[#B0A49E] text-[var(--foreground)]",
+            "focus:outline-none focus:border-dralena-accent transition-colors duration-200",
             error
-              ? "border-kult-fire"
-              : "border-[var(--border)] hover:border-[var(--muted)]",
+              ? "border-dralena-fire"
+              : "border-[#E0D0CC] hover:border-[var(--muted)]",
             className
           )}
           {...props}
         />
         {error && (
-          <p className="text-xs text-kult-fire">{error}</p>
+          <p className="text-xs text-dralena-fire">{error}</p>
         )}
         {hint && !error && (
           <p className="text-xs" style={{ color: "var(--muted)" }}>{hint}</p>

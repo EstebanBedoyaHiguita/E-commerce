@@ -3,6 +3,6 @@ import { cookies } from "next/headers"
 
 export async function POST() {
   const cookieStore = await cookies()
-  cookieStore.delete("ultrastore-admin-session")
+  cookieStore.delete("dralena-admin-session")
   return NextResponse.redirect(new URL("/admin/login", process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"))
 }

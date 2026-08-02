@@ -50,14 +50,21 @@ export async function CategoryGrid() {
   return (
     <section className="container mx-auto px-4 md:px-8 py-20">
       <ScrollReveal>
-        <div className="flex items-baseline justify-between mb-10">
-          <h2 className="font-display text-5xl md:text-7xl tracking-widest">CATEGORÍAS</h2>
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#B98A8F] mb-2.5">
+              Por categoría
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-light leading-none">
+              Encuentra lo tuyo
+            </h2>
+          </div>
           <Link
             href="/catalogo"
-            className="text-xs uppercase tracking-widest hover:text-kult-neon transition-colors flex items-center gap-1"
-            style={{ color: "var(--muted)" }}
+            className="text-xs uppercase tracking-[0.14em] border-b border-[#C9B4B0] pb-1 hover:text-dralena-accent hover:border-dralena-accent transition-colors flex items-center gap-1"
+            style={{ color: "#5c524d" }}
           >
-            Ver todo <ArrowUpRight className="h-3 w-3" />
+            Ver todo el catálogo <ArrowUpRight className="h-3 w-3" />
           </Link>
         </div>
       </ScrollReveal>
@@ -78,15 +85,13 @@ export async function CategoryGrid() {
               fill
               className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-white/60">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2A2320]/62 via-[#2A2320]/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/72">
                 {cat.count} {cat.count === 1 ? "pieza" : "piezas"}
               </p>
-              <h3 className="font-display text-2xl md:text-3xl text-white tracking-widest mt-0.5">
-                {cat.name}
-              </h3>
-              <div className="flex items-center gap-1 mt-2 text-kult-neon text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <h3 className="font-display text-2xl md:text-3xl text-white mt-1">{cat.name}</h3>
+              <div className="flex items-center gap-1 mt-2 text-white/80 text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 Ver todo <ArrowUpRight className="h-3 w-3" />
               </div>
             </div>

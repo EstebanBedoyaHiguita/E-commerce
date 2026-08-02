@@ -6,7 +6,14 @@ import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const SIZES = ["XS", "S", "M", "L", "XL", "XXL"]
+// Sistema de tallas de lencería: brasier por banda+copa, resto por talla numérica
+const BRA_SIZES = [
+  "32A", "32B", "34A", "34B", "34C",
+  "36B", "36C", "36D", "38C", "38D",
+  "40D", "40DD", "42DD",
+]
+const NUMBER_SIZES = ["6", "8", "10", "12", "14", "16"]
+
 const SORT_OPTIONS = [
   { value: "newest", label: "Más nuevos" },
   { value: "price_asc", label: "Precio: menor a mayor" },
@@ -44,26 +51,43 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
     router.push(`${pathname}?${createQueryString({ [key]: value })}`, { scroll: false })
   }
 
-  const toggleSize = (size: string) => {
-    const current = searchParams.get("tallas")?.split(",").filter(Boolean) ?? []
+  const toggleSize = (key: string, size: string) => {
+    const current = searchParams.get(key)?.split(",").filter(Boolean) ?? []
     const next = current.includes(size)
       ? current.filter((s) => s !== size)
       : [...current, size]
-    setFilter("tallas", next.length > 0 ? next.join(",") : null)
+    setFilter(key, next.length > 0 ? next.join(",") : null)
   }
 
   const activeCategory = searchParams.get("categoria")
-  const activeBrand = searchParams.get("marca")
-  const activeGender = searchParams.get("genero")
-  const activeSizes = searchParams.get("tallas")?.split(",").filter(Boolean) ?? []
+  const activeCollection = searchParams.get("coleccion")
+  const activeBraSizes = searchParams.get("tallas_brasier")?.split(",").filter(Boolean) ?? []
+  const activeNumberSizes = searchParams.get("tallas_numero")?.split(",").filter(Boolean) ?? []
   const activeSort = searchParams.get("orden") ?? "newest"
-  const hasFilters = activeCategory || activeBrand || activeGender || activeSizes.length > 0
+  const hasFilters =
+    activeCategory || activeCollection || activeBraSizes.length > 0 || activeNumberSizes.length > 0
+
+  const sizeChip = (size: string, active: boolean, onClick: () => void, wide?: boolean) => (
+    <button
+      key={size}
+      onClick={onClick}
+      className={cn(
+        "h-9 px-3 text-xs border transition-colors",
+        wide ? "w-12" : "min-w-[44px]",
+        active
+          ? "border-dralena-accent bg-[#F7EAEC] text-dralena-accent font-medium"
+          : "border-[#E0D0CC] text-[#5c524d] hover:border-[var(--muted)]"
+      )}
+    >
+      {size}
+    </button>
+  )
 
   return (
     <aside className="space-y-8 sticky top-24">
       {/* Sort */}
       <div>
-        <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Ordenar por</h3>
+        <h3 className="text-[10.5px] uppercase tracking-[0.2em] font-semibold mb-4">Ordenar por</h3>
         <div className="space-y-1">
           {SORT_OPTIONS.map((opt) => (
             <button
@@ -71,8 +95,9 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
               onClick={() => setFilter("orden", opt.value)}
               className={cn(
                 "block w-full text-left text-sm py-1.5 transition-colors",
-                activeSort === opt.value ? "text-kult-neon font-semibold" : "hover:text-kult-neon",
-                activeSort !== opt.value && "opacity-70"
+                activeSort === opt.value
+                  ? "text-dralena-accent font-medium"
+                  : "text-[#928681] hover:text-dralena-accent"
               )}
             >
               {opt.label}
@@ -83,13 +108,15 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
 
       {/* Category */}
       <div>
-        <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Categoría</h3>
+        <h3 className="text-[10.5px] uppercase tracking-[0.2em] font-semibold mb-4">Categoría</h3>
         <div className="space-y-1">
           <button
             onClick={() => setFilter("categoria", null)}
             className={cn(
               "block w-full text-left text-sm py-1.5 transition-colors",
-              !activeCategory ? "text-kult-neon font-semibold" : "hover:text-kult-neon opacity-70"
+              !activeCategory
+                ? "text-dralena-accent font-medium"
+                : "text-[#928681] hover:text-dralena-accent"
             )}
           >
             Todas
@@ -101,8 +128,8 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
               className={cn(
                 "block w-full text-left text-sm py-1.5 transition-colors",
                 activeCategory === cat.slug
-                  ? "text-kult-neon font-semibold"
-                  : "hover:text-kult-neon opacity-70"
+                  ? "text-dralena-accent font-medium"
+                  : "text-[#928681] hover:text-dralena-accent"
               )}
             >
               {cat.name}
@@ -111,73 +138,66 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
         </div>
       </div>
 
-      {/* Brands */}
-      <div>
-        <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Marca</h3>
-        <div className="space-y-1">
-          <button
-            onClick={() => setFilter("marca", null)}
-            className={cn(
-              "block w-full text-left text-sm py-1.5 transition-colors",
-              !activeBrand ? "text-kult-neon font-semibold" : "hover:text-kult-neon opacity-70"
-            )}
-          >
-            Todas
-          </button>
-          {brands.map((brand) => (
+      {/* Collections (tabla `brands` reusada como colecciones) */}
+      {brands.length > 0 && (
+        <div>
+          <h3 className="text-[10.5px] uppercase tracking-[0.2em] font-semibold mb-4">Colección</h3>
+          <div className="space-y-1">
             <button
-              key={brand.id}
-              onClick={() => setFilter("marca", brand.id)}
+              onClick={() => setFilter("coleccion", null)}
               className={cn(
                 "block w-full text-left text-sm py-1.5 transition-colors",
-                activeBrand === brand.id
-                  ? "text-kult-neon font-semibold"
-                  : "hover:text-kult-neon opacity-70"
+                !activeCollection
+                  ? "text-dralena-accent font-medium"
+                  : "text-[#928681] hover:text-dralena-accent"
               )}
             >
-              {brand.name}
+              Todas
             </button>
-          ))}
+            {brands.map((brand) => (
+              <button
+                key={brand.id}
+                onClick={() => setFilter("coleccion", brand.id)}
+                className={cn(
+                  "block w-full text-left text-sm py-1.5 transition-colors",
+                  activeCollection === brand.id
+                    ? "text-dralena-accent font-medium"
+                    : "text-[#928681] hover:text-dralena-accent"
+                )}
+              >
+                {brand.name}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Gender */}
+      {/* Bra sizes */}
       <div>
-        <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Género</h3>
-        <div className="space-y-1">
-          {[{ value: null, label: "Todos" }, { value: "hombre", label: "Hombre" }, { value: "mujer", label: "Mujer" }, { value: "unisex", label: "Unisex" }].map((opt) => (
-            <button
-              key={opt.label}
-              onClick={() => setFilter("genero", opt.value)}
-              className={cn(
-                "block w-full text-left text-sm py-1.5 transition-colors",
-                activeGender === opt.value ? "text-kult-neon font-semibold" : "hover:text-kult-neon opacity-70"
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Sizes */}
-      <div>
-        <h3 className="text-xs uppercase tracking-widest font-bold mb-4">Talla</h3>
+        <h3 className="text-[10.5px] uppercase tracking-[0.2em] font-semibold mb-4">
+          Talla de brasier
+        </h3>
         <div className="flex flex-wrap gap-2">
-          {SIZES.map((size) => (
-            <button
-              key={size}
-              onClick={() => toggleSize(size)}
-              className={cn(
-                "h-9 w-12 text-xs font-semibold border transition-colors",
-                activeSizes.includes(size)
-                  ? "border-kult-neon text-kult-neon bg-kult-neon/10"
-                  : "border-[var(--border)] hover:border-[var(--muted)]"
-              )}
-            >
-              {size}
-            </button>
-          ))}
+          {BRA_SIZES.map((size) =>
+            sizeChip(size, activeBraSizes.includes(size), () => toggleSize("tallas_brasier", size))
+          )}
+        </div>
+      </div>
+
+      {/* Number sizes */}
+      <div>
+        <h3 className="text-[10.5px] uppercase tracking-[0.2em] font-semibold mb-4">
+          Talla numérica
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {NUMBER_SIZES.map((size) =>
+            sizeChip(
+              size,
+              activeNumberSizes.includes(size),
+              () => toggleSize("tallas_numero", size),
+              true
+            )
+          )}
         </div>
       </div>
 
@@ -186,7 +206,7 @@ export function FilterPanel({ categories, brands }: FilterPanelProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="w-full gap-1"
+          className="w-full gap-1 border-t border-[var(--border)] rounded-none pt-5 h-auto justify-start !text-dralena-accent"
           onClick={() => router.push(pathname, { scroll: false })}
         >
           <X className="h-3 w-3" />

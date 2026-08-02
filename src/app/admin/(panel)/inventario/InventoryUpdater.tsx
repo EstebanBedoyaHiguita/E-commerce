@@ -31,12 +31,12 @@ export function InventoryUpdater({ variantId, currentStock }: Props) {
         min="0"
         value={stock}
         onChange={(e) => setStock(Number(e.target.value))}
-        className="w-20 h-8 px-2 bg-transparent border border-kult-border text-sm focus:outline-none focus:border-kult-neon"
+        className="w-20 h-8 px-2 bg-transparent border border-dralena-border text-sm focus:outline-none focus:border-dralena-accent"
       />
       <button
         onClick={save}
         disabled={saving || stock === currentStock}
-        className="text-xs text-kult-neon hover:underline disabled:opacity-40"
+        className="text-xs text-dralena-accent hover:underline disabled:opacity-40"
       >
         {saving ? "..." : "Guardar"}
       </button>

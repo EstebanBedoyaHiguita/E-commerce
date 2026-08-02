@@ -46,7 +46,7 @@ export function OrderStatusUpdater({ orderId, currentStatus, customerPhone, cust
       value={status}
       onChange={(e) => handleChange(e.target.value as Status)}
       disabled={updating}
-      className="bg-transparent text-xs uppercase tracking-widest border px-2 py-1 cursor-pointer disabled:opacity-50 focus:outline-none focus:border-kult-neon"
+      className="bg-transparent text-xs uppercase tracking-widest border px-2 py-1 cursor-pointer disabled:opacity-50 focus:outline-none focus:border-dralena-accent"
       style={{
         color: STATUS_COLORS[status],
         borderColor: STATUS_COLORS[status],

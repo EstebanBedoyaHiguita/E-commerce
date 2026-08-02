@@ -64,17 +64,17 @@ export default async function AdminDashboard() {
 
   return (
     <div className="p-8 space-y-8">
-      <h1 className="font-display text-4xl tracking-widest">DASHBOARD</h1>
+      <h1 className="font-display text-4xl font-light">DASHBOARD</h1>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s) => (
           <div
             key={s.label}
-            className={`border p-5 space-y-1 ${s.alert ? "border-kult-fire" : "border-kult-border"}`}
+            className={`border p-5 space-y-1 ${s.alert ? "border-dralena-fire" : "border-dralena-border"}`}
           >
             <p className="text-[11px] uppercase tracking-widest" style={{ color: "var(--muted)" }}>{s.label}</p>
-            <p className={`font-display text-3xl tracking-wider ${s.alert ? "text-kult-fire" : "text-kult-neon"}`}>
+            <p className={`font-display text-3xl tracking-wider ${s.alert ? "text-dralena-fire" : "text-dralena-accent"}`}>
               {s.value}
             </p>
             <p className="text-xs" style={{ color: "var(--muted)" }}>{s.sub}</p>
@@ -84,13 +84,13 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent orders */}
-        <div className="lg:col-span-2 border border-kult-border">
-          <div className="px-5 py-4 border-b border-kult-border">
-            <h2 className="font-display text-xl tracking-widest">PEDIDOS RECIENTES</h2>
+        <div className="lg:col-span-2 border border-dralena-border">
+          <div className="px-5 py-4 border-b border-dralena-border">
+            <h2 className="font-display text-xl font-light">PEDIDOS RECIENTES</h2>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-kult-border">
+              <tr className="border-b border-dralena-border">
                 {["#", "Cliente", "Total", "Pago", "Estado"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-[11px] uppercase tracking-widest" style={{ color: "var(--muted)" }}>{h}</th>
                 ))}
@@ -98,7 +98,7 @@ export default async function AdminDashboard() {
             </thead>
             <tbody>
               {data.recentOrders.map((order: { id: string; shipping_address: { full_name?: string }; total: number; payment_method: string; status: string }) => (
-                <tr key={order.id} className="border-b border-kult-border hover:bg-white/5 transition-colors">
+                <tr key={order.id} className="border-b border-dralena-border hover:bg-white/5 transition-colors">
                   <td className="px-5 py-3 font-mono text-xs">{order.id.slice(0, 8).toUpperCase()}</td>
                   <td className="px-5 py-3">{order.shipping_address?.full_name ?? order.id.slice(0, 8)}</td>
                   <td className="px-5 py-3 font-display tracking-wider">{formatCOP(order.total)}</td>
@@ -118,18 +118,18 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Low stock */}
-        <div className="border border-kult-border">
-          <div className="px-5 py-4 border-b border-kult-border">
-            <h2 className="font-display text-xl tracking-widest text-kult-fire">BAJO STOCK</h2>
+        <div className="border border-dralena-border">
+          <div className="px-5 py-4 border-b border-dralena-border">
+            <h2 className="font-display text-xl font-light text-dralena-fire">BAJO STOCK</h2>
           </div>
-          <ul className="divide-y divide-kult-border">
+          <ul className="divide-y divide-dralena-border">
             {data.lowStock.length === 0 ? (
               <li className="px-5 py-4 text-sm" style={{ color: "var(--muted)" }}>Todo en orden ✓</li>
             ) : (
               data.lowStock.map((v: { sku: string; stock: number }) => (
                 <li key={v.sku} className="flex justify-between px-5 py-3 text-sm">
                   <span className="font-mono text-xs">{v.sku}</span>
-                  <span className={`font-bold ${v.stock === 0 ? "text-kult-fire" : "text-yellow-400"}`}>
+                  <span className={`font-bold ${v.stock === 0 ? "text-dralena-fire" : "text-yellow-400"}`}>
                     {v.stock} u.
                   </span>
                 </li>

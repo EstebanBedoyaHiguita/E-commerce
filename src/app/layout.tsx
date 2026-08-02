@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
+const cormorant = Cormorant_Garamond({
+  weight: ["300", "400", "500"],
   subsets: ["latin"],
-  variable: "--font-bebas",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const jost = Jost({
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-jost",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "UltraStore — Streetwear Multimarca",
-    template: "%s | UltraStore",
+    default: "DRALENA — Lencería femenina",
+    template: "%s | DRALENA",
   },
   description:
-    "Tienda online de ropa urbana y streetwear. Jeans, camisetas y más de las mejores marcas.",
-  keywords: ["streetwear", "ropa urbana", "jeans", "camisetas", "Colombia"],
+    "Lencería de encaje diseñada y confeccionada en Colombia. Envío discreto a todo el país.",
+  keywords: ["lencería", "encaje", "conjuntos", "brasier", "Colombia"],
   openGraph: {
     type: "website",
     locale: "es_CO",
-    siteName: "UltraStore",
+    siteName: "DRALENA",
   },
 };
 
@@ -36,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <body className={`${bebasNeue.variable} ${dmSans.variable} font-body antialiased`}>
+    <html lang="es">
+      <body className={`${cormorant.variable} ${jost.variable} font-body antialiased`}>
         {children}
       </body>
     </html>

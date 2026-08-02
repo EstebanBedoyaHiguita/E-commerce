@@ -29,9 +29,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             className={cn(
               "w-full h-12 px-4 pr-10 bg-[var(--background)] border appearance-none",
               "font-body text-sm text-[var(--foreground)] cursor-pointer",
-              "focus:outline-none focus:border-kult-neon transition-colors duration-200",
+              "focus:outline-none focus:border-dralena-accent transition-colors duration-200",
               error
-                ? "border-kult-fire"
+                ? "border-dralena-fire"
                 : "border-[var(--border)] hover:border-[var(--muted)]",
               className
             )}
@@ -48,7 +48,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             style={{ color: "var(--muted)" }}
           />
         </div>
-        {error && <p className="text-xs text-kult-fire">{error}</p>}
+        {error && <p className="text-xs text-dralena-fire">{error}</p>}
       </div>
     )
   }

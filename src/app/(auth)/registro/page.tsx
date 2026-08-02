@@ -63,12 +63,12 @@ export default function RegistroPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center max-w-sm">
-          <div className="text-kult-neon font-display text-6xl mb-4">✓</div>
-          <h2 className="font-display text-3xl tracking-widest mb-2">¡CUENTA CREADA!</h2>
+          <div className="text-dralena-accent font-display text-6xl mb-4">✓</div>
+          <h2 className="font-display text-3xl font-light mb-2">¡Cuenta creada!</h2>
           <p className="text-sm" style={{ color: "var(--muted)" }}>
             Revisa tu email para confirmar tu cuenta y poder iniciar sesión.
           </p>
-          <Link href="/login" className="block mt-6 text-kult-neon underline text-sm">
+          <Link href="/login" className="block mt-6 text-dralena-accent underline text-sm">
             Ir a iniciar sesión
           </Link>
         </div>
@@ -80,10 +80,10 @@ export default function RegistroPage() {
     <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-[var(--background)]">
       <div className="w-full max-w-sm">
         <div className="mb-10 text-center">
-          <Link href="/" className="font-display text-5xl tracking-widest hover:text-kult-neon transition-colors">
-            KULT
+          <Link href="/" className="font-display text-4xl tracking-[0.34em] pl-[0.34em] hover:text-dralena-accent transition-colors">
+            DRALENA
           </Link>
-          <h1 className="font-display text-3xl tracking-widest mt-4">CREAR CUENTA</h1>
+          <h1 className="font-display text-3xl font-light mt-4">Crear cuenta</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -93,7 +93,7 @@ export default function RegistroPage() {
           <Input label="Contraseña" type="password" placeholder="Mínimo 8 caracteres" error={errors.password?.message} {...register("password")} />
           <Input label="Confirmar contraseña" type="password" placeholder="Repite tu contraseña" error={errors.confirm?.message} {...register("confirm")} />
 
-          {error && <p className="text-sm text-kult-fire">{error}</p>}
+          {error && <p className="text-sm text-dralena-fire">{error}</p>}
 
           <Button type="submit" size="lg" className="w-full" loading={isSubmitting}>
             Crear cuenta
@@ -102,7 +102,7 @@ export default function RegistroPage() {
 
         <p className="text-center text-sm mt-6" style={{ color: "var(--muted)" }}>
           ¿Ya tienes cuenta?{" "}
-          <Link href="/login" className="text-kult-neon font-semibold hover:underline">
+          <Link href="/login" className="text-dralena-accent font-semibold hover:underline">
             Inicia sesión
           </Link>
         </p>

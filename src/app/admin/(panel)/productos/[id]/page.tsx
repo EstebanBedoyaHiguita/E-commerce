@@ -33,7 +33,7 @@ export default async function EditProductPage({ params }: { params: { id: string
 
   return (
     <div className="p-8 max-w-4xl">
-      <h1 className="font-display text-4xl tracking-widest mb-8">EDITAR PRODUCTO</h1>
+      <h1 className="font-display text-4xl font-light mb-8">EDITAR PRODUCTO</h1>
       <ProductForm
         brands={brands}
         categories={categories}
@@ -45,7 +45,7 @@ export default async function EditProductPage({ params }: { params: { id: string
           brand_id: product.brand_id ?? "",
           category_id: product.category_id ?? "",
           base_price: product.base_price,
-          gender: product.gender ?? "unisex",
+          gender: product.gender ?? "mujer",
           is_active: product.is_active,
           is_featured: product.is_featured ?? false,
           images: product.images ?? [],

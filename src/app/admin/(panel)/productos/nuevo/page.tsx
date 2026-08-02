@@ -15,7 +15,7 @@ export default async function NuevoProductoPage() {
 
   return (
     <div className="p-8 max-w-4xl">
-      <h1 className="font-display text-4xl tracking-widest mb-8">NUEVO PRODUCTO</h1>
+      <h1 className="font-display text-4xl font-light mb-8">NUEVO PRODUCTO</h1>
       <ProductForm brands={brands ?? []} categories={categories ?? []} />
     </div>
   )

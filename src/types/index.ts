@@ -71,7 +71,7 @@ export type OrderStatus =
   | "entregado"
   | "cancelado"
 
-export type PaymentMethod = "bold" | "contraentrega"
+export type PaymentMethod = "bold"
 
 export interface ShippingAddress {
   full_name: string
